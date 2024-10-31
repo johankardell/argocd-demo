@@ -1,0 +1,96 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki-helm
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: loki
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: loki
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.18.0
+    helm:
+      values: |
+        loki:
+          auth_enabled: false
+          nodeSelector:
+            loki: "true"
+            
+          limits_config:
+            max_label_names_per_series: 30
+            
+          schemaConfig:
+            configs:
+              - from: 2024-04-01
+                store: tsdb
+                object_store: azure
+                schema: v13
+                index:
+                  prefix: loki_index_
+                  period: 24h
+          ingester:
+            chunk_encoding: snappy
+          tracing:
+            enabled: true
+          querier:
+            max_concurrent: 4
+
+          storage:
+            type: azure
+            azure:
+              # Name of the Azure Blob Storage account
+              accountName: "jklokidemo"
+              # Flag indicating whether to use Azure Managed Identity for authentication
+              useManagedIdentity: true
+              # Flag indicating whether to use a federated token for authentication
+              useFederatedToken: false
+              # Client ID of the user-assigned managed identity (if applicable)
+              userAssignedId: 96970a19-26c3-4d29-948c-ec88176bbaee
+              # Timeout duration for requests made to the Azure Blob Storage account (in seconds)
+              requestTimeout: 0
+              # Domain suffix of the Azure Blob Storage service endpoint (e.g., core.windows.net)
+              # endpointSuffix: blob.core.windows.net
+            bucketNames:
+              chunks: "chunks"
+              ruler: "ruler"
+              admin: "admin"
+        deploymentMode: Distributed
+
+        ingester:
+          replicas: 3
+        querier:
+          replicas: 3
+          maxUnavailable: 2
+        queryFrontend:
+          replicas: 2
+          maxUnavailable: 1
+        queryScheduler:
+          replicas: 2
+        distributor:
+          replicas: 3
+          maxUnavailable: 2
+        compactor:
+          replicas: 1
+        indexGateway:
+          replicas: 2
+          maxUnavailable: 1
+
+        bloomCompactor:
+          replicas: 0
+        bloomGateway:
+          replicas: 0
+
+        backend:
+          replicas: 0
+        read:
+          replicas: 0
+        write:
+          replicas: 0
+
+        singleBinary:
+          replicas: 0
