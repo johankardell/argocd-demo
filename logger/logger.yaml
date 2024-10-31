@@ -3,11 +3,11 @@ kind: Deployment
 metadata:
   name: logger-deployment
 spec:
-  selector:
-    matchLabels:
-      os: linux
   replicas: 2
   template:
+    selector:
+      matchLabels:
+        os: linux
     metadata:
       labels:
         app: logger
