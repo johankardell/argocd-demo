@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      os: linux
+      app: logger
   replicas: 2
   template:
     metadata:
