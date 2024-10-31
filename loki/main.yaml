@@ -6,9 +6,6 @@ metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
-  selector:
-    matchLabels:
-      loki: true
   destination:
     namespace: loki
     server: https://kubernetes.default.svc
@@ -21,8 +18,6 @@ spec:
       values: |
         loki:
           auth_enabled: false
-          nodeSelector:
-            loki: "true"
             
           limits_config:
             max_label_names_per_series: 30
@@ -63,7 +58,9 @@ spec:
               ruler: "ruler"
               admin: "admin"
         deploymentMode: Distributed
-
+        nodeSelector:
+            loki: "true"
+        
         ingester:
           replicas: 3
         querier:
