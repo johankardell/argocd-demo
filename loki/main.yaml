@@ -6,6 +6,9 @@ metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
+  selector:
+    matchLabels:
+      loki: true
   destination:
     namespace: loki
     server: https://kubernetes.default.svc

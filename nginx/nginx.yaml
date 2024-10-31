@@ -13,7 +13,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nginx
+      os: linux
   replicas: 2
   template:
     metadata:
