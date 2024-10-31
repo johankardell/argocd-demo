@@ -3,15 +3,17 @@ kind: Deployment
 metadata:
   name: logger-deployment
 spec:
+  selector:
+    matchLabels:
+      os: linux
   replicas: 2
   template:
-    selector:
-      matchLabels:
-        os: linux
     metadata:
       labels:
         app: logger
     spec:
+      nodeSelector:
+        kubernetes.io/os: linux
       containers:
       - name: logger
         image: chentex/random-logger:latest
