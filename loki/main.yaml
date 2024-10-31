@@ -58,11 +58,11 @@ spec:
               ruler: "ruler"
               admin: "admin"
         deploymentMode: Distributed
-        nodeSelector:
-            loki: "true"
         
         ingester:
           replicas: 3
+          nodeSelector:
+            loki: "true"
         querier:
           replicas: 3
           maxUnavailable: 2
