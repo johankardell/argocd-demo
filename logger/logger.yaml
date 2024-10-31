@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger-deployment
+spec:
+  selector:
+    matchLabels:
+      app: logger
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: logger
+    spec:
+      containers:
+      - name: logger
+        image: chentex/random-logger:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
