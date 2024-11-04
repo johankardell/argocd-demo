@@ -64,19 +64,19 @@ spec:
         deploymentMode: Distributed
         nodeSelector:
           loki: "true"
-        affinity:
-          podAntiAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - loki
-                topologyKey: kubernetes.io/hostname
 
         ingester:
           replicas: 3
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: component
+                        operator: In
+                        values:
+                          - ingester
+                  topologyKey: topology.kubernetes.io/zone
         querier:
           replicas: 3
           maxUnavailable: 2
