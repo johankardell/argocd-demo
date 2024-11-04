@@ -64,7 +64,7 @@ spec:
         deploymentMode: Distributed
 
         ingester:
-          replicas: 10
+          replicas: 30
         querier:
           replicas: 3
           maxUnavailable: 2
