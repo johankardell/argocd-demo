@@ -52,7 +52,7 @@ spec:
               # Flag indicating whether to use a federated token for authentication
               useFederatedToken: false
               # Client ID of the user-assigned managed identity (if applicable)
-              userAssignedId: b1afa257-67a4-440f-aada-a65f53f83f6d
+              userAssignedId: 5a401594-e0c7-4f45-9b34-ad5688a1cd81
               # Timeout duration for requests made to the Azure Blob Storage account (in seconds)
               requestTimeout: 0
               # Domain suffix of the Azure Blob Storage service endpoint (e.g., core.windows.net)
