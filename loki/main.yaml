@@ -65,8 +65,6 @@ spec:
 
         ingester:
           replicas: 10
-          nodeSelector:
-            loki: "true"
         querier:
           replicas: 3
           maxUnavailable: 2
