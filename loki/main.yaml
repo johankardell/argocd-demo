@@ -65,6 +65,23 @@ spec:
 
         ingester:
           replicas: 9
+          zoneAwareReplication:
+            enabled: true
+          zoneA:
+            nodeSelector:
+              kubernetes.io/os: linux
+              loki: "true"
+              topology.kubernetes.io/zone: "swedencentral-1"
+          zoneB:
+            nodeSelector:
+              kubernetes.io/os: linux
+              loki: "true"
+              topology.kubernetes.io/zone: "swedencentral-2"
+          zoneC:
+            nodeSelector:
+              kubernetes.io/os: linux
+              loki: "true"
+              topology.kubernetes.io/zone: "swedencentral-3"
         querier:
           replicas: 3
           maxUnavailable: 2
