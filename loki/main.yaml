@@ -64,10 +64,13 @@ spec:
         deploymentMode: Distributed
 
         ingester:
-          replicas: 30
+          replicas: 9
         querier:
           replicas: 3
           maxUnavailable: 2
+          nodeSelector:
+            kubernetes.io/os: linux
+            loki: "true"
         queryFrontend:
           replicas: 2
           maxUnavailable: 1
