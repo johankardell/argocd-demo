@@ -79,7 +79,7 @@ spec:
               requiredDuringSchedulingIgnoredDuringExecution:
                 - labelSelector:
                     matchExpressions:
-                      - key: component
+                      - key: app.kubernetes.io/component
                         operator: In
                         values:
                           - ingester
