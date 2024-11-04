@@ -62,8 +62,16 @@ spec:
               ruler: "ruler"
               admin: "admin"
         deploymentMode: Distributed
-        nodeSelector:
-          loki: "true"
+        affinity:
+          podAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                        - loki
+                topologyKey: agentpool
 
         ingester:
           replicas: 10
