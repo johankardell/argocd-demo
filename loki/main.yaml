@@ -63,7 +63,7 @@ spec:
               admin: "admin"
         deploymentMode: Distributed
         nodeSelector:
-          app: loki
+          loki: "true"
             
         ingester:
           replicas: 3
