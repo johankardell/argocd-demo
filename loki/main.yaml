@@ -62,27 +62,39 @@ spec:
               ruler: "ruler"
               admin: "admin"
         deploymentMode: Distributed
-        nodeSelector:
-            app: loki
             
         ingester:
           replicas: 3
+          nodeSelector:
+            app: loki
         querier:
           replicas: 3
           maxUnavailable: 2
+          nodeSelector:
+            app: loki
         queryFrontend:
           replicas: 2
           maxUnavailable: 1
+          nodeSelector:
+            app: loki
         queryScheduler:
           replicas: 2
+          nodeSelector:
+            app: loki
         distributor:
           replicas: 3
           maxUnavailable: 2
+          nodeSelector:
+            app: loki
         compactor:
           replicas: 1
+          nodeSelector:
+            app: loki
         indexGateway:
           replicas: 2
           maxUnavailable: 1
+          nodeSelector:
+            app: loki
 
         bloomCompactor:
           replicas: 0
