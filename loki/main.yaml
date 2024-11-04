@@ -65,25 +65,8 @@ spec:
 
         ingester:
           replicas: 10
-          affinity:
-            podAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                - labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/name
-                        operator: In
-                        values:
-                          - loki
-                  topologyKey: agentpool
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                - labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/component
-                        operator: In
-                        values:
-                          - ingester
-                  topologyKey: topology.kubernetes.io/zone
+          nodeSelector:
+            loki: "true"
         querier:
           replicas: 3
           maxUnavailable: 2
