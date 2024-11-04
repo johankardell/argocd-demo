@@ -1,20 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: nginx-distributed
 spec:
   selector:
     matchLabels:
-      app: nginx
-  replicas: 2
+      app: nginx-distributed
+  replicas: 9
   template:
     metadata:
       labels:
-        app: nginx
+        app: nginx-distributed
     spec:
       nodeSelector:
         kubernetes.io/os: linux
-        # nginx: "true"
+        # loki: "true"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - nginx-distributed
+              topologyKey: topology.kubernetes.io/zone
       containers:
       - name: nginx
         image: nginx:latest
