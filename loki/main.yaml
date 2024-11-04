@@ -64,7 +64,7 @@ spec:
         deploymentMode: Distributed
 
         ingester:
-          replicas: 21
+          replicas: 3
           zoneAwareReplication:
             enabled: true
             zoneA:
