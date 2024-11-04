@@ -74,11 +74,20 @@ spec:
         queryFrontend:
           replicas: 2
           maxUnavailable: 1
+          nodeSelector:
+            kubernetes.io/os: linux
+            loki: "true"
         queryScheduler:
           replicas: 2
+          nodeSelector:
+            kubernetes.io/os: linux
+            loki: "true"
         distributor:
           replicas: 3
           maxUnavailable: 2
+          nodeSelector:
+            kubernetes.io/os: linux
+            loki: "true"
         compactor:
           replicas: 1
         indexGateway:
